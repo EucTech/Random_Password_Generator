@@ -20,14 +20,36 @@ else:
 
 password = ''.join(random.choices(string.ascii_uppercase + string.ascii_lowercase + string.digits + string.punctuation, k=15))
 
+
 if info == 1:
-    create = input("\nCreate Password: ")
-    while create <= 15:
-        if not any(char.isupper() for char in created):
-            print("Add upper")
+    while True:
+        create = input("\nCreate Password: ")
+        length = len(create)
+
+        if length < 6:
+            print("\nPassword should be at least 6 charactes long.\n")
+        if length == 6:
+            if not any(n in create for n in string.ascii_uppercase):
+                print("\nAdd at least one uppercase")
+            elif not any(n in create for n in string.ascii_lowercase):
+                print("\nAdd at least one lowercase")
+            elif not any(n in create for n in string.digits):
+                print("\nAdd at least one digits")
+            elif not any(n in create for n in string.punctuation):
+                print("\nAdd at least one symbol\n")
+            else:
+                confirm = input("\nConfirm Password: ")
+                if create == confirm:
+                    print("You have created your password ✅\n")
+                    break
+                elif not create == confirm:
+                    print("\nIncorrect password")
+
+        elif length > 6:
+            print("\nPassword should not be more than 6 characters\n")
 
 
 if info == 2:
     print(password)
-else:
+elif not info == 1 or info == 2:
     print("Input 1 or 2")
